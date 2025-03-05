@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 
 #Экземпляр бота и диспетчера
-bot = Bot(token="7399928399:AAGVW6kBllbTUDSjfA4uPW1GI1qF2EXraM0")
+bot = Bot(token="Вай токен")
 dp = Dispatcher()
 
 #Бот принимает команды, напрмер /start.
