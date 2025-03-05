@@ -15,7 +15,7 @@ async def process_start_command(message):
 
 
 @dp.message()
-async def echo_message(messccage):
+async def echo_message(message):
     await message.answer(message.text)
 
 #фунция запуска проекта
