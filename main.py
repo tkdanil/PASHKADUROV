@@ -1,3 +1,4 @@
+#version 0.1.0
 import asyncio
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
