@@ -1,12 +1,9 @@
-from aiogram import types
+from aiogram.types import BotCommand, BotCommandScopeDefault
 
-# Здесь создаем список команд
-set_my_commands = [
-    types.BotCommand(command="/start", description="Начать взаимодействие с ботом"),
-    types.BotCommand(command="/help", description="Получить помощь по командам"),
-    types.BotCommand(command="/status", description="Проверить статус бота"),
+async def set_commands(bot):
+    commands = [
+        BotCommand(command='start', description='Старт'),
+        BotCommand(command='/status', description='Статус'),
+        BotCommand(command='/help', description='Справка')
 ]
-
-async def setup_commands(bot):
-    # Устанавливаем команды для бота
-    await bot.set_my_commands(set_my_commands)
+    await bot.set_my_commands(commands, BotCommandScopeDefault())
