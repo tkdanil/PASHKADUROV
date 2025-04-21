@@ -3,13 +3,13 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from config import TOKEN
 from handlers import router
-
+from utils import setup_logger
 
 async def main():
 
     bot = Bot(token=TOKEN)
     dp = Dispatcher()
-
+    setup_logger(fname=__name__)
 #Опредление для диспечера маршрутизация из handlers
     dp.include_router(router)
 
