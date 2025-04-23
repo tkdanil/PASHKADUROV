@@ -4,7 +4,7 @@ from aiogram.filters import Command
 from config import TOKEN
 
 #Экземпляр бота и диспетчера
-bot = Bot(token=TOKEN)
+bot = Bot(token="TOKEN")
 dp = Dispatcher()
 
 #Бот принимает команды, напрмер /start.
