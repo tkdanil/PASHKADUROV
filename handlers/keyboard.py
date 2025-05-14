@@ -1,15 +1,23 @@
 
-from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
-#подстрочная клавиатура
-main_keyboard_list = [
-        [KeyboardButton(text="Статус"), ],
-    ]
-
-main_keyboard = ReplyKeyboardMarkup(keyboard=main_keyboard_list, resize_keyboard=True, one_time_keyboard=True)
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
-# Клавиатура в сообщении
-button_continue = [
-    [InlineKeyboardButton(text="ДАлее",callback_data="continue"),]
-]
-keyboard_continue = InlineKeyboardMarkup(inline_keyboard=button_continue)
+
+
+
+
+button_continue = InlineKeyboardButton(text="ДАлее",callback_data="button_continue")
+
+button_tutor = InlineKeyboardButton(text="Слушатель",callback_data="button_tutor")
+
+button_student = InlineKeyboardButton(text="Преподаватель",callback_data="button_student")
+
+
+
+keyboard_continue = InlineKeyboardMarkup(inline_keyboard=[
+        [button_continue, ]
+    ])
+
+keyboard_start = InlineKeyboardMarkup(inline_keyboard=[
+        [button_student, button_tutor ]
+    ])

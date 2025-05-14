@@ -1,22 +1,34 @@
-# version1.0.0
+import logging
 import asyncio
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher,types
 from config import TOKEN
-from handlers import router
-from utils import setup_logger
+from handlers import register_message_handlers, bot_commands
+from db import async_create_table
+
+
+# Настройка логирования
+logging.basicConfig(level=logging.INFO)
+
 
 async def main():
 
+
     bot = Bot(token=TOKEN)
     dp = Dispatcher()
-    setup_logger(fname=__name__)
-#Опредление для диспечера маршрутизация из handlers
-    dp.include_router(router)
 
+    # Здесь функция для вызова хендлеров из handlers.py
+    await register_message_handlers(dp)
 
+    # Здесь вызов меню с командами бота
+    await bot.set_my_commands(bot_commands, types.BotCommandScopeDefault())
 
     # Запуск бота в polling-режиме
     await dp.start_polling(bot)
 
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(async_create_table())
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        logging.info("End Script!")
