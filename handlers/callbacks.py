@@ -1,5 +1,11 @@
-from aiogram.types import CallbackQuery
+import logging
 
+from aiogram.types import CallbackQuery
+from sqlalchemy import insert
+from db import User, async_session
+import string
+from random import choices
+import logging
 
 # Callback_query_handler - это функция, которая позволяет обрабатывать коллбек-запросы от пользователей.
 # Коллбэк-запрос - это запрос, который отправляется боту, когда пользователь нажимает кнопку в его чате.
@@ -13,11 +19,23 @@ from aiogram.types import CallbackQuery
 async def callback_message(callback: CallbackQuery):
     """Ответ на кнопку"""
 
-    # TODO - два коллбек-ответа на кнопку слушатель/преподаватель
-    # async with async_session() as session:
-    #     """Что-то происходит"""
-    #     insert_query = insert(User).values()
-    #     await session.execute(insert_query)
-    #     await session.commit()
+
 
     await callback.message.answer("Успешно!")
+
+async def callback_start_tutor(callback: CallbackQuery):
+    """регестрация преподователя"""
+
+    async with async_session() as session:
+         """Что-то происходит"""
+         chars = string.ascii_letters + string.digits + string.punctuation
+         new_user = {
+             "user_id": callback.from_user.id,
+             "username": callback.from_user.username,
+             "tutorcode": "".join(choices(chars, k = 6))
+         }
+         insert_query = insert(User).values(**new_user)
+         await session.execute(insert_query)
+         await session.commit()
+         await callback.message.answer("Пользователь добавлен!")
+         logging.info(f"Пользователь {callback.from_user.username} добавлен в базу данных с ролью преподователь!")

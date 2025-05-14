@@ -10,7 +10,7 @@ __all__ = [
 
 from aiogram import types, Router, filters, F
 from .keyboard import keyboard_continue, keyboard_start  # импорт из клавиатур
-from .callbacks import callback_message  # импорт из коллбека
+from .callbacks import callback_message, callback_start_tutor  # импорт из коллбека
 from db import async_session, User
 from sqlalchemy import select
 # Создаем экземпляр Router
@@ -39,3 +39,4 @@ async def register_message_handlers(router: Router):
     """Маршрутизация обработчиков"""
     router.message.register(command_start_handler, filters.Command(commands=["start"]))
     router.callback_query.register(callback_message, F.data.endswith("_continue"))
+    router.callback_query.register(callback_start_tutor), F.data.endswith("_tutor")
