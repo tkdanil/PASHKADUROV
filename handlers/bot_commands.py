@@ -14,5 +14,5 @@ from aiogram import types
 # Здесь создать список команд
 bot_commands = [
     types.BotCommand(command="start", description="Запуск бота"),
-    types.BotCommand(command="help", description="Справка о боте"),
+    types.BotCommand(command="status", description="Информация о пользователе"),
 ]
