@@ -13,8 +13,13 @@ from .keyboard import keyboard_continue, keyboard_start  # импорт из к�
 from .callbacks import callback_message, callback_start_tutor  # импорт из коллбека
 from db import async_session, User
 from sqlalchemy import select
-# Создаем экземпляр Router
 
+
+# информации о статусе
+status_string: str = """
+UserId {}
+UserName {}
+"""
 
 async def command_start_handler(message: types.Message):
     async with async_session() as session:
@@ -25,7 +30,18 @@ async def command_start_handler(message: types.Message):
             await message.answer(info)
         else:
             await  message.answer("выберите роль", reply_markup=keyboard_start)
-            pass
+
+
+async def command_status_handler(message: types.Message):
+    async with async_session() as session:
+        query = select(User).where(message.from_user.id == User.user_id)
+        result = await session.execute(query)
+        user = result.scalar()
+        if user.tutorcode:
+            info = status_string + "Код преподавателя: {}"
+            info = info.format(user.user_id, user.username, user.tutorcode)
+        await message.answer(info)
+
 
 
 
@@ -38,5 +54,7 @@ async def command_help_handler(message: types.Message):
 async def register_message_handlers(router: Router):
     """Маршрутизация обработчиков"""
     router.message.register(command_start_handler, filters.Command(commands=["start"]))
+    router.message.register(command_status_handler, filters.Command(commands=["status"]))
     router.callback_query.register(callback_message, F.data.endswith("_continue"))
     router.callback_query.register(callback_start_tutor), F.data.endswith("_tutor")
+
