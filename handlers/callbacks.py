@@ -18,16 +18,13 @@ import logging
 
 async def callback_message(callback: CallbackQuery):
     """Ответ на кнопку"""
-
-
-
     await callback.message.answer("Успешно!")
+
 
 async def callback_start_tutor(callback: CallbackQuery):
     """регестрация преподователя"""
 
     async with async_session() as session:
-         """Что-то происходит"""
          chars = string.ascii_letters + string.digits + string.punctuation
          new_user = {
              "user_id": callback.from_user.id,
@@ -39,3 +36,20 @@ async def callback_start_tutor(callback: CallbackQuery):
          await session.commit()
          await callback.message.answer("Пользователь добавлен!")
          logging.info(f"Пользователь {callback.from_user.username} добавлен в базу данных с ролью преподователь!")
+
+async def callback_insert_tutorcode(callback: CallbackQuery):
+    """Регестарция слушателя. Ввод кода"""
+    await callback.message.answer("Введите код преподавателя (в формате tutorcode-CODE):")
+
+async def start_student(message):
+    async with async_session() as session:
+         new_user = {
+             "user_id": message.from_user.id,
+             "username": message.from_user.username,
+             "subscribe": str(message.text).split("-")[1]
+         }
+         insert_query = insert(User).values(**new_user)
+         await session.execute(insert_query)
+         await session.commit()
+         await message.answer("Пользователь добавлен!")
+         logging.info(f"Пользователь {message.from_user.username} добавлен в базу данных с ролью слушатель!")
