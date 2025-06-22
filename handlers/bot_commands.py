@@ -15,4 +15,8 @@ from aiogram import types
 bot_commands = [
     types.BotCommand(command="start", description="Запуск бота"),
     types.BotCommand(command="status", description="Информация о пользователе"),
+    types.BotCommand(command="vmpath", description="Указать адрес виртуальной машины"),
+    types.BotCommand(command="check", description="Проверить подключение к ВМ"),
+    types.BotCommand(command="ls", description="Список файлов в домашнем каталоге"),
+    types.BotCommand(command="cat", description="Содержимое текстовых файлов"),
 ]
