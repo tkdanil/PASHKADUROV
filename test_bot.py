@@ -32,7 +32,7 @@ async def test_imports():
         from config import TOKEN
         print(f"✅ Конфигурация загружена, токен: {TOKEN[:10]}...")
         
-        from db.models import User, VMConnection, Base
+        from script.db import User, VMConnection, Base
         print("✅ Модели базы данных импортированы")
         
         from utils.ssh_client import SSHClient
@@ -53,8 +53,8 @@ async def test_database():
     try:
         print("\nТестируем базу данных...")
         
-        from db import async_session, async_create_table
-        from db.models import User, VMConnection
+        from script.db import async_session, async_create_table
+        from script.db import User, VMConnection
         
         # Создаем таблицы
         await async_create_table()

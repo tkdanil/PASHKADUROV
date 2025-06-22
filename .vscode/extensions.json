@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.pylance",
+        "ms-python.black-formatter",
+        "ms-python.flake8",
+        "ms-python.python-indent",
+        "ms-python.python-docstring-generator",
+        "ms-python.python-test-adapter",
+        "eamodio.gitlens",
+        "ms-vscode.vscode-json",
+        "ms-vscode.vscode-python-test-adapter"
+    ]
+}

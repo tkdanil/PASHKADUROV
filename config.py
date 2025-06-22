@@ -1,8 +1,8 @@
-from dotenv import load_dotenv
 import os
-load_dotenv() # take environment variables from env.
+from dotenv import load_dotenv
 
-# Code of your application, which uses environment variables (e.g. from "os .environ" or
-#"os.getenv") as if they came from the actual environment.
+load_dotenv()
 
-TOKEN: str = os.getenv("TOKEN", "7399928399:AAGVW6kBllbTUDSjfA4uPW1GI1qF2EXraM0")
+# ВАЖНО: Вставьте ваш токен сюда
+BOT_TOKEN = os.getenv("BOT_TOKEN", "7399928399:AAGVW6kBllbTUDSjfA4uPW1GI1qF2EXraM0") 
+DB_NAME = "main.db"
